@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+/* .heart {
+  color: lightblue;
+} */
+
+/* .heart:hover {
+  color: red;
+} */
+.likeBtn {
+  /* width: 10px; */
+  /* height: 20px; */
+  padding: 0 6px;
+}
