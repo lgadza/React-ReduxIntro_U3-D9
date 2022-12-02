@@ -48,3 +48,20 @@
   /* height: 20px; */
   padding: 0 6px;
 }
+.success {
+  background-color: #282c34;
+  color: white;
+  padding: 5px 15px;
+}
+#responsive-navbar-nav a {
+  color: white;
+}
+#responsive-navbar-nav a:hover {
+  text-decoration: none;
+}
+.likeMe {
+  background-color: rgb(211, 66, 66);
+}
+.likeMe:hover {
+  background-color: rgb(82, 52, 52);
+}
