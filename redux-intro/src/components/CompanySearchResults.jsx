@@ -11,7 +11,8 @@ const CompanySearchResults = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
-  const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?company=";
+  const baseEndpoint =
+    "https://strive-benchmark.herokuapp.com/api/jobs?company=";
 
   useEffect(() => {
     getJobs();

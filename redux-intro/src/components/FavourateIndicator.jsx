@@ -7,7 +7,7 @@ const FavourateIndicator = () => {
   const navigate = useNavigate();
 
   const favourateLength = useSelector(
-    (store) => store.favourite.content.length
+    (state) => state.favourite.favourite.content.length
   );
 
   return (

@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Job from "./Job";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setCompanySearchAction,
+  setMainSearchActionAsync,
+} from "../redux/actions";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState([]);
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.job.search);
+  console.log(search);
 
-  const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
+  const baseEndpoint =
+    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -14,6 +23,8 @@ const MainSearch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(setMainSearchActionAsync(query));
+    // const mainSearch=useSelector((store)=>store.user.name)
 
     try {
       const response = await fetch(baseEndpoint + query + "&limit=20");
@@ -46,14 +57,7 @@ const MainSearch = () => {
         </Col>
         <Col xs={10} className="mx-auto mb-5">
           {jobs.map((jobData) => (
-            <>
-              <Job key={jobData._id} data={jobData} />
-              {/* <p>
-                <Button className="likeBtn " variant="outline-danger">
-                  <Heart size="10" className="heart heart-fill" />
-                </Button>
-              </p> */}
-            </>
+            <Job key={jobData._id} data={jobData} />
           ))}
         </Col>
       </Row>

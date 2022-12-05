@@ -4,7 +4,7 @@ import { Heart } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
 
 const Favourite = () => {
-  const favourite = useSelector((state) => state.favourite.content);
+  const favourite = useSelector((state) => state.favourite.favourite.content);
   const dispatch = useDispatch();
   return (
     <Container className="justify-content-center">
