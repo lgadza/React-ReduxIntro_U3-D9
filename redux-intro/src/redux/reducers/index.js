@@ -8,7 +8,7 @@ const initialState = {
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TO_FAVOURITE":
+    case ADD_TO_FAVOURITE:
       return {
         ...state,
         favourite: {
@@ -17,7 +17,7 @@ const mainReducer = (state = initialState, action) => {
         },
       };
 
-    case "REMOVE_FROM_FAVOURITE":
+    case REMOVE_FROM_FAVOURITE:
       return {
         ...state,
         favourite: {
