@@ -9,7 +9,7 @@ const MainSearch = () => {
   const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState([]);
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.jobSearch.search);
+  const search = useSelector((state) => state.jobSearch);
   const areResultsError = useSelector((state) => state.jobSearch.isError);
   const areResultsLoading = useSelector((state) => state.jobSearch.isLoading);
   console.log(search);
@@ -22,13 +22,12 @@ const MainSearch = () => {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+    // dispatch(mainSearch());
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(setMainSearchActionAsync(query));
-    // dispatch(mainSearch(query));
-    // const mainSearch=useSelector((store)=>store.user.name)
 
     try {
       const response = await fetch(baseEndpoint + query + "&limit=20");
