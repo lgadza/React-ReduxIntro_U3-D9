@@ -5,7 +5,7 @@ import {
 } from "../actions";
 
 const initialState = {
-  search: [],
+  jobs: [],
   isLoading: true,
   isError: false,
 };
@@ -15,7 +15,7 @@ const searchResultsReducer = (state = initialState, action) => {
     case GET_MAIN_SEARCH:
       return {
         ...state,
-        search: [action.payload],
+        jobs: action.payload,
       };
     case GET_MAIN_SEARCH_LOADING:
       return {

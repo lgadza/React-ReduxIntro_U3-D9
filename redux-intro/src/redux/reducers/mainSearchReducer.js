@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const mainSearchReducer = (state = initialState, action) => {
-  //   console.log(state.search.action.payload);
   switch (action.type) {
     case SET_MAIN_SEARCH:
       return {

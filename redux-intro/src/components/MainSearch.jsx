@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Alert } from "react-bootstrap";
+import { Container, Row, Col, Form, Alert, Spinner } from "react-bootstrap";
 import Job from "./Job";
 import { useSelector, useDispatch } from "react-redux";
 import { setMainSearchActionAsync } from "../redux/actions";
@@ -9,37 +9,34 @@ const MainSearch = () => {
   const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState([]);
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.jobSearch);
+  const searchRes = useSelector((state) => state.job.search);
+  console.log(searchRes);
   const areResultsError = useSelector((state) => state.jobSearch.isError);
   const areResultsLoading = useSelector((state) => state.jobSearch.isLoading);
-  console.log(search);
-  useEffect(() => {
-    dispatch(mainSearch);
-  }, []);
 
-  const baseEndpoint =
-    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
+  // const baseEndpoint =
+  //   "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
   const handleChange = (e) => {
     setQuery(e.target.value);
-    // dispatch(mainSearch());
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(setMainSearchActionAsync(query));
+    dispatch(mainSearch(searchRes));
 
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        setJobs(data);
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const response = await fetch(baseEndpoint + query + "&limit=20");
+    //   if (response.ok) {
+    //     const { data } = await response.json();
+    //     setJobs(data);
+    //   } else {
+    //     alert("Error fetching results");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -48,7 +45,7 @@ const MainSearch = () => {
         <Col sm={12}>
           {areResultsError ? (
             <Alert variant="danger" className="text-center">
-              Whoopsie, something went wrong 🥲
+              Whoopsie, something went wrong
             </Alert>
           ) : (
             <>
@@ -73,11 +70,18 @@ const MainSearch = () => {
             />
           </Form>
         </Col>
-        <Col xs={10} className="mx-auto mb-5">
-          {jobs.map((jobData) => (
-            <Job key={jobData._id} data={jobData} />
-          ))}
-        </Col>
+        {query && (
+          <>
+            <Col xs={10} className="mx-auto mb-5">
+              {areResultsLoading && (
+                <Spinner animation="border" variant="danger" className="ml-5" />
+              )}
+              {jobs.map((jobData) => (
+                <Job key={jobData._id} data={jobData} />
+              ))}
+            </Col>
+          </>
+        )}
       </Row>
     </Container>
   );

@@ -1,4 +1,3 @@
-// import results from "../reducers/mainSearchReducer";
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
 export const SET_MAIN_SEARCH = "SET_MAIN_SEARCH";
@@ -19,38 +18,22 @@ export const removeFromFavAction = (i) => ({
   type: REMOVE_FROM_FAVOURITE,
   payload: i,
 });
-let results = [];
 export const setMainSearchActionAsync = (query) => {
   return async (dispatch, getState) => {
-    console.log("I will console log this before returning the action!");
-    results.push(query);
-    console.log("Let's also take a look the the current state:", getState());
-    console.log("this is my ext", results[0]);
     dispatch({
       type: SET_MAIN_SEARCH,
       payload: query,
     });
   };
 };
-export const setCompanySearchActionAsync = (companySearch) => {
-  return async (dispatch, getState) => {
-    console.log("I will console log this before returning the action!");
 
-    console.log("Let's also take a look the the current state:", getState());
-    dispatch({
-      type: SET_COMPANY_SEARCH,
-      payload: companySearch,
-    });
-  };
-};
-
-export const mainSearch = async () => {
+export const mainSearch = async (query) => {
   const baseEndpoint =
     "https://strive-benchmark.herokuapp.com/api/jobs?search=";
-  console.log(results[0]);
-  return async (dispatch, getState) => {
+  console.log(query);
+  return async (dispatch) => {
     try {
-      let response = await fetch(baseEndpoint + results[0] + "&limit=20");
+      let response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
         const data = await response.json();
         console.log("Louis Search:", data);

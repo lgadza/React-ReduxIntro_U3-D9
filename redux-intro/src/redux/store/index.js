@@ -1,13 +1,12 @@
 import {
   configureStore,
-  combineReducers,
   getDefaultMiddleware,
+  combineReducers,
 } from "@reduxjs/toolkit";
 import mainReducer from "../reducers";
 import mainSearchReducer from "../reducers/mainSearchReducer";
 import companySearch from "../reducers/companySearch";
 import searchResultsReducer from "../reducers/searchResults";
-// import storage from "redux-persist/lib/storage";
 import localStorage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import { persistReducer, persistStore } from "redux-persist";
