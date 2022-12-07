@@ -19,11 +19,56 @@ export const removeFromFavAction = (i) => ({
   payload: i,
 });
 export const setMainSearchActionAsync = (query) => {
-  return async (dispatch, getState) => {
-    dispatch({
-      type: SET_MAIN_SEARCH,
-      payload: query,
-    });
+  // return async (dispatch, getState) => {
+  //   dispatch({
+  //     type: SET_MAIN_SEARCH,
+  //     payload: query,
+  //   });
+  // };
+  const baseEndpoint =
+    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
+  console.log(query);
+  return async (dispatch) => {
+    try {
+      let response = await fetch(baseEndpoint + query + "&limit=20");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Louis Search:", data);
+        dispatch({
+          type: SET_MAIN_SEARCH,
+          payload: data,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: GET_MAIN_SEARCH_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: GET_MAIN_SEARCH_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: GET_MAIN_SEARCH_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: GET_MAIN_SEARCH_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: GET_MAIN_SEARCH_ERROR,
+        payload: true,
+      });
+    }
   };
 };
 

@@ -10,12 +10,9 @@ const MainSearch = () => {
   const [jobs, setJobs] = useState([]);
   const dispatch = useDispatch();
   const searchRes = useSelector((state) => state.job.search);
-  console.log(searchRes);
+  console.log(searchRes.data[0]);
   const areResultsError = useSelector((state) => state.jobSearch.isError);
   const areResultsLoading = useSelector((state) => state.jobSearch.isLoading);
-
-  // const baseEndpoint =
-  //   "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -25,37 +22,10 @@ const MainSearch = () => {
     e.preventDefault();
     dispatch(setMainSearchActionAsync(query));
     dispatch(mainSearch(searchRes));
-
-    // try {
-    //   const response = await fetch(baseEndpoint + query + "&limit=20");
-    //   if (response.ok) {
-    //     const { data } = await response.json();
-    //     setJobs(data);
-    //   } else {
-    //     alert("Error fetching results");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (
     <Container>
-      <Row>
-        <Col sm={12}>
-          {areResultsError ? (
-            <Alert variant="danger" className="text-center">
-              Whoopsie, something went wrong
-            </Alert>
-          ) : (
-            <>
-              {!areResultsLoading && (
-                <h3>Start by clicking on a Company Name!</h3>
-              )}
-            </>
-          )}
-        </Col>
-      </Row>
       <Row>
         <Col xs={10} className="mx-auto my-3">
           <h1>Remote Jobs Search</h1>
@@ -76,7 +46,7 @@ const MainSearch = () => {
               {areResultsLoading && (
                 <Spinner animation="border" variant="danger" className="ml-5" />
               )}
-              {jobs.map((jobData) => (
+              {searchRes.data.map((jobData) => (
                 <Job key={jobData._id} data={jobData} />
               ))}
             </Col>
