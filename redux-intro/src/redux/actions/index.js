@@ -19,16 +19,10 @@ export const removeFromFavAction = (i) => ({
   payload: i,
 });
 export const setMainSearchActionAsync = (query) => {
-  // return async (dispatch, getState) => {
-  //   dispatch({
-  //     type: SET_MAIN_SEARCH,
-  //     payload: query,
-  //   });
-  // };
-  const baseEndpoint =
-    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
   console.log(query);
   return async (dispatch) => {
+    const baseEndpoint =
+      "https://strive-benchmark.herokuapp.com/api/jobs?search=";
     try {
       let response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
